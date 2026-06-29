@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # =============================================================
-#  CẢNH PHÒNG — Build & Package for Plesk (Mắt Bão) Deploy
+#  ANM&CNCHP — Build & Package for Plesk (Mắt Bão) Deploy
 #
 #  Cách dùng:
 #    bash build-deploy.sh              → dùng .env.local  (mặc định)
@@ -105,7 +105,7 @@ fi
 # ── Banner ────────────────────────────────────────────────────
 echo ""
 echo -e "${CYAN}┌─────────────────────────────────────────────────────┐${NC}"
-echo -e "${CYAN}│  CẢNH PHÒNG · Build & Package → Plesk Deploy        │${NC}"
+echo -e "${CYAN}│  ANM&CNCHP · Build & Package → Plesk Deploy        │${NC}"
 echo -e "${CYAN}│  ANM&CNCHP — Chống Lừa Đảo Trực Tuyến TP Hải Phòng │${NC}"
 echo -e "${CYAN}└─────────────────────────────────────────────────────┘${NC}"
 echo ""

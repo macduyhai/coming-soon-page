@@ -21,7 +21,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Cảnh Phòng — Chống Lừa Đảo Trực Tuyến TP. Hải Phòng",
+  title: "ANM&CNCHP — Chống Lừa Đảo Trực Tuyến TP. Hải Phòng",
   description:
     "Nền tảng cẩm nang, cảnh báo và tố giác lừa đảo trực tuyến — miễn phí, dành cho người dân thành phố Hải Phòng.",
 };

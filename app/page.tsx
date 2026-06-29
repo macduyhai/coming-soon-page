@@ -39,6 +39,8 @@ function PinIcon() {
   );
 }
 
+const LOGO_URL = process.env.NEXT_PUBLIC_LOGO_URL;
+
 export default function Home() {
   return (
     <main
@@ -83,19 +85,29 @@ export default function Home() {
         className="relative flex items-center justify-between px-6 py-5 md:px-10"
         style={{ zIndex: 10 }}
       >
-        <div className="flex flex-col">
-          <span
-            className="font-display text-sm font-semibold tracking-tight leading-none"
-            style={{ color: "#ECECF5" }}
-          >
-            CẢNH PHÒNG
-          </span>
-          <span
-            className="font-mono text-[9px] tracking-[0.18em]"
-            style={{ color: "#8B8BA7" }}
-          >
-            HẢI PHÒNG &middot; CHỐNG LỪA ĐẢO
-          </span>
+        <div className="flex items-center gap-3">
+          {LOGO_URL && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={LOGO_URL}
+              alt="Logo Bộ Công An"
+              style={{ height: "40px", width: "auto", objectFit: "contain" }}
+            />
+          )}
+          <div className="flex flex-col">
+            <span
+              className="font-display text-sm font-semibold tracking-tight leading-none"
+              style={{ color: "#ECECF5" }}
+            >
+              ANM&CNCHP
+            </span>
+            <span
+              className="font-mono text-[9px] tracking-[0.18em]"
+              style={{ color: "#8B8BA7" }}
+            >
+              HẢI PHÒNG &middot; CHỐNG LỪA ĐẢO
+            </span>
+          </div>
         </div>
         <StatusPill />
       </header>

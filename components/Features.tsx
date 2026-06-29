@@ -10,7 +10,7 @@ const features = [
     id: "02",
     title: "Cảnh báo tức thì",
     description:
-      "Nhận thông báo ngay khi xuất hiện kịch bản lừa đảo mới tại địa bàn Hải Phòng. Cảnh báo qua email và Zalo OA — không cần cài ứng dụng.",
+      "Nhận thông báo ngay khi xuất hiện kịch bản lừa đảo mới tại địa bàn Hải Phòng.",
     accent: "#8B5CF6",
   },
   {
@@ -24,7 +24,7 @@ const features = [
     id: "04",
     title: "Xác minh nguồn tin",
     description:
-      "Tra cứu số điện thoại lạ, số tài khoản ngân hàng, tên miền website để biết ngay chúng có nằm trong danh sách cảnh báo quốc gia hay không.",
+      "Có các hướng dẫn cụ thể để xác minh thông tin, tránh bị lừa đảo bởi các nguồn tin giả mạo.",
     accent: "#6366F1",
   },
 ];
@@ -59,9 +59,9 @@ const hotlines = [
     sublabel: "Đường dây quốc gia",
   },
   {
-    number: "19001567",
-    label: "An ninh mạng",
-    sublabel: "Cục An ninh mạng — Bộ CA",
+    number: "069.278.5415",
+    label: "ANM&CNCHP",
+    sublabel: "An ninh mạng và PCTP sử dụng công nghệ cao CATP Hải Phòng",
   },
 ];
 
