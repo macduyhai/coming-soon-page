@@ -4,28 +4,28 @@ const features = [
     title: "Cẩm nang nhận diện",
     description:
       "Thư viện thủ đoạn lừa đảo phổ biến — giả mạo công an, ngân hàng, chiếm đoạt mạng xã hội, đầu tư ảo — được cập nhật hàng tuần theo thực tế tại Hải Phòng.",
-    accent: "#6366F1",
+    accent: "#4F46E5",
   },
   {
     id: "02",
     title: "Cảnh báo tức thì",
     description:
       "Nhận thông báo ngay khi xuất hiện kịch bản lừa đảo mới tại địa bàn Hải Phòng.",
-    accent: "#8B5CF6",
+    accent: "#7C3AED",
   },
   {
     id: "03",
     title: "Tố giác trực tiếp",
     description:
       "Báo cáo vụ việc kèm bằng chứng ảnh, video, đoạn hội thoại — kết nối thẳng tới cơ quan điều tra. Nhanh hơn, có dấu vết pháp lý rõ ràng hơn.",
-    accent: "#22D3EE",
+    accent: "#06B6D4",
   },
   {
     id: "04",
     title: "Xác minh nguồn tin",
     description:
       "Có các hướng dẫn cụ thể để xác minh thông tin, tránh bị lừa đảo bởi các nguồn tin giả mạo.",
-    accent: "#6366F1",
+    accent: "#4F46E5",
   },
 ];
 
@@ -43,7 +43,7 @@ const stats = [
   {
     number: "5",
     label: "Bước Phòng Chống",
-    color: "#22D3EE",
+    color: "#06B6D4",
   },
 ];
 
@@ -128,13 +128,13 @@ export default function Features() {
         >
           <span
             className="font-mono text-[10px] tracking-[0.25em] shrink-0"
-            style={{ color: "#8B8BA7" }}
+            style={{ color: "#6B7280" }}
           >
             NỀN TẢNG SẮP RA MẮT
           </span>
           <div
             className="flex-1 h-px"
-            style={{ background: "rgba(255,255,255,0.06)" }}
+            style={{ background: "rgba(0,0,0,0.07)" }}
             aria-hidden="true"
           />
         </div>
@@ -143,8 +143,9 @@ export default function Features() {
         <div
           className="grid grid-cols-3 rounded-xl overflow-hidden mb-6"
           style={{
-            border: "1px solid rgba(255,255,255,0.07)",
-            background: "#0F0E1A",
+            border: "1px solid rgba(79,70,229,0.12)",
+            background: "#FFFFFF",
+            boxShadow: "0 1px 4px rgba(0,0,0,0.05)",
           }}
           aria-label="Thống kê nội dung"
         >
@@ -167,7 +168,7 @@ export default function Features() {
               </span>
               <span
                 className="font-body text-[11px] sm:text-xs leading-tight"
-                style={{ color: "#8B8BA7" }}
+                style={{ color: "#6B7280" }}
               >
                 {s.label}
               </span>
@@ -183,7 +184,7 @@ export default function Features() {
               <article
                 key={f.id}
                 className="feature-card rounded-xl p-6 flex flex-col gap-4"
-                style={{ background: "#0F0E1A" }}
+                style={{ background: "#FFFFFF" }}
               >
                 <div className="flex items-center justify-between">
                   <div
@@ -194,7 +195,7 @@ export default function Features() {
                   </div>
                   <span
                     className="font-mono text-[10px] tracking-[0.2em]"
-                    style={{ color: "#8B8BA7" }}
+                    style={{ color: "#6B7280" }}
                   >
                     {f.id}
                   </span>
@@ -203,13 +204,13 @@ export default function Features() {
                 <div className="flex flex-col gap-2">
                   <h3
                     className="font-display text-sm font-semibold"
-                    style={{ color: "#ECECF5" }}
+                    style={{ color: "#14103A" }}
                   >
                     {f.title}
                   </h3>
                   <p
                     className="font-body text-sm leading-relaxed"
-                    style={{ color: "#8B8BA7" }}
+                    style={{ color: "#6B7280" }}
                   >
                     {f.description}
                   </p>
@@ -236,25 +237,25 @@ export default function Features() {
         <div
           className="mt-6 rounded-xl p-5 flex flex-col sm:flex-row sm:items-center gap-5"
           style={{
-            background: "rgba(34,211,238,0.04)",
-            border: "1px solid rgba(34,211,238,0.12)",
+            background: "rgba(6,182,212,0.06)",
+            border: "1px solid rgba(6,182,212,0.22)",
           }}
         >
           <div className="shrink-0">
             <p
               className="font-mono text-[10px] tracking-[0.22em] mb-1"
-              style={{ color: "#22D3EE" }}
+              style={{ color: "#06B6D4" }}
             >
               LIÊN HỆ KHẨN CẤP
             </p>
-            <p className="font-body text-xs leading-relaxed" style={{ color: "#8B8BA7" }}>
+            <p className="font-body text-xs leading-relaxed" style={{ color: "#6B7280" }}>
               Nếu bạn đang hoặc vừa bị lừa đảo, hãy liên hệ ngay:
             </p>
           </div>
 
           <div
             className="w-px h-8 hidden sm:block shrink-0"
-            style={{ background: "rgba(255,255,255,0.06)" }}
+            style={{ background: "rgba(0,0,0,0.07)" }}
             aria-hidden="true"
           />
 
@@ -268,19 +269,19 @@ export default function Features() {
               >
                 <span
                   className="font-mono text-lg font-semibold leading-none group-hover:text-cyan transition-colors duration-150"
-                  style={{ color: "#ECECF5" }}
+                  style={{ color: "#14103A" }}
                 >
                   {h.number}
                 </span>
                 <span
                   className="font-mono text-[10px] tracking-[0.12em]"
-                  style={{ color: "#8B8BA7" }}
+                  style={{ color: "#6B7280" }}
                 >
                   {h.label}
                 </span>
                 <span
                   className="font-mono text-[9px]"
-                  style={{ color: "#8B8BA7", opacity: 0.7 }}
+                  style={{ color: "#6B7280", opacity: 0.7 }}
                 >
                   {h.sublabel}
                 </span>
@@ -291,7 +292,7 @@ export default function Features() {
 
         <p
           className="font-mono text-[10px] mt-4 leading-relaxed text-center"
-          style={{ color: "#8B8BA7", opacity: 0.55 }}
+          style={{ color: "#6B7280", opacity: 0.55 }}
         >
           Số đường dây nóng có thể thay đổi theo quy định cơ quan nhà nước. Vui lòng xác
           minh trước khi gọi.

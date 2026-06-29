@@ -14,11 +14,12 @@ interface Particle {
   wrapped: boolean;
 }
 
-// Indigo · Violet · Cyan
+// Màu đậm hơn để nổi bật trên nền sáng
 const COLORS: [number, number, number][] = [
-  [99, 102, 241],
-  [139, 92, 246],
-  [34, 211, 238],
+  [79, 70, 229],   // deep indigo  #4F46E5
+  [124, 58, 237],  // deep violet  #7C3AED
+  [6, 182, 212],   // deep cyan    #06B6D4
+  [16, 185, 129],  // emerald      #10B981
 ];
 
 function fieldNoise(x: number, y: number, t: number): number {
@@ -55,12 +56,12 @@ export default function FlowField() {
 
   useEffect(() => {
     if (!canvasRef.current) return;
-    // Explicit types — TypeScript loses narrowing inside nested function closures
     const canvas: HTMLCanvasElement = canvasRef.current;
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const ctxOrNull = canvas.getContext("2d", { alpha: false });
+    // alpha: true — canvas trong suốt, nền gradient CSS hiển thị phía sau
+    const ctxOrNull = canvas.getContext("2d", { alpha: true });
     if (!ctxOrNull) return;
     const ctx: CanvasRenderingContext2D = ctxOrNull;
 
@@ -80,8 +81,8 @@ export default function FlowField() {
       canvas.style.height = `${h}px`;
       ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
 
-      ctx.fillStyle = "#07060D";
-      ctx.fillRect(0, 0, w, h);
+      // Canvas trong suốt — không fill màu nền
+      ctx.clearRect(0, 0, w, h);
 
       const count = Math.max(80, Math.min(240, Math.floor((w * h) / 5500)));
       particles = Array.from({ length: count }, () => makeParticle(w, h, true));
@@ -90,25 +91,29 @@ export default function FlowField() {
     function frame() {
       t += 0.007;
 
-      // Fade existing trails — lower = longer trails
-      ctx.fillStyle = "rgba(7,6,13,0.052)";
+      // Dùng destination-out để fade trail về transparent
+      // → nền gradient CSS hiện ra phía sau trail cũ
+      ctx.save();
+      ctx.globalCompositeOperation = "destination-out";
+      ctx.fillStyle = "rgba(0,0,0,0.07)"; // tốc độ fade: 7%/frame
       ctx.fillRect(0, 0, w, h);
+      ctx.restore();
 
-      ctx.lineWidth = 0.85;
+      ctx.lineWidth = 1;
       ctx.lineCap = "round";
 
       for (const p of particles) {
         p.life += 1;
 
-        // Envelope: fade in and out at life edges
+        // Envelope fade in/out theo vòng đời
         const r = p.life / p.maxLife;
-        const alpha =
-          r < 0.1 ? r / 0.1 : r > 0.86 ? (1 - r) / 0.14 : 1;
+        const alpha = r < 0.1 ? r / 0.1 : r > 0.86 ? (1 - r) / 0.14 : 1;
 
         if (!p.wrapped) {
           const [cr, cg, cb] = COLORS[p.colorIdx];
           ctx.beginPath();
-          ctx.strokeStyle = `rgba(${cr},${cg},${cb},${(alpha * 0.36).toFixed(3)})`;
+          // Opacity cao hơn so với dark theme để nổi bật trên nền sáng
+          ctx.strokeStyle = `rgba(${cr},${cg},${cb},${(alpha * 0.5).toFixed(3)})`;
           ctx.moveTo(p.prevX, p.prevY);
           ctx.lineTo(p.x, p.y);
           ctx.stroke();
@@ -122,14 +127,10 @@ export default function FlowField() {
         p.x += Math.cos(angle) * p.speed;
         p.y += Math.sin(angle) * p.speed;
 
-        // Respawn on life expiry
         if (p.life >= p.maxLife) {
           const nx = Math.random() * w;
           const ny = Math.random() * h;
-          p.x = nx;
-          p.y = ny;
-          p.prevX = nx;
-          p.prevY = ny;
+          p.x = nx; p.y = ny; p.prevX = nx; p.prevY = ny;
           p.life = 0;
           p.maxLife = 200 + Math.random() * 280;
           p.colorIdx = Math.floor(Math.random() * COLORS.length);
@@ -137,26 +138,11 @@ export default function FlowField() {
           continue;
         }
 
-        // Edge wrap
         const pad = 12;
-        if (p.x < -pad) {
-          p.x = w + pad;
-          p.prevX = p.x;
-          p.wrapped = true;
-        } else if (p.x > w + pad) {
-          p.x = -pad;
-          p.prevX = p.x;
-          p.wrapped = true;
-        }
-        if (p.y < -pad) {
-          p.y = h + pad;
-          p.prevY = p.y;
-          p.wrapped = true;
-        } else if (p.y > h + pad) {
-          p.y = -pad;
-          p.prevY = p.y;
-          p.wrapped = true;
-        }
+        if (p.x < -pad)     { p.x = w + pad; p.prevX = p.x; p.wrapped = true; }
+        else if (p.x > w + pad) { p.x = -pad; p.prevX = p.x; p.wrapped = true; }
+        if (p.y < -pad)     { p.y = h + pad; p.prevY = p.y; p.wrapped = true; }
+        else if (p.y > h + pad) { p.y = -pad; p.prevY = p.y; p.wrapped = true; }
       }
 
       rafId = requestAnimationFrame(frame);

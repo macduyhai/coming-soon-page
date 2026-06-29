@@ -44,8 +44,7 @@ const LOGO_URL = process.env.NEXT_PUBLIC_LOGO_URL;
 export default function Home() {
   return (
     <main
-      className="relative isolate min-h-screen flex flex-col overflow-x-hidden"
-      style={{ background: "#07060D" }}
+      className="animated-bg relative isolate min-h-screen flex flex-col overflow-x-hidden"
     >
       {/* Layer 0 — flow-field canvas */}
       <FlowField />
@@ -60,7 +59,7 @@ export default function Home() {
             width: "55%",
             height: "55%",
             background:
-              "radial-gradient(circle at center, rgba(99,102,241,0.14) 0%, transparent 68%)",
+              "radial-gradient(circle at center, rgba(79,70,229,0.35) 0%, transparent 68%)",
             filter: "blur(64px)",
             zIndex: 1,
           }}
@@ -73,7 +72,7 @@ export default function Home() {
             width: "50%",
             height: "50%",
             background:
-              "radial-gradient(circle at center, rgba(34,211,238,0.09) 0%, transparent 68%)",
+              "radial-gradient(circle at center, rgba(6,182,212,0.25) 0%, transparent 68%)",
             filter: "blur(64px)",
             zIndex: 1,
           }}
@@ -97,13 +96,13 @@ export default function Home() {
           <div className="flex flex-col">
             <span
               className="font-display text-sm font-semibold tracking-tight leading-none"
-              style={{ color: "#ECECF5" }}
+              style={{ color: "#14103A" }}
             >
               ANM&CNCHP
             </span>
             <span
               className="font-mono text-[9px] tracking-[0.18em]"
-              style={{ color: "#8B8BA7" }}
+              style={{ color: "#6B7280" }}
             >
               HẢI PHÒNG &middot; CHỐNG LỪA ĐẢO
             </span>

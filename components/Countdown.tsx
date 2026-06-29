@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
-// Ngày ra mắt chính thức — cập nhật theo kế hoạch thực tế
 const LAUNCH = new Date("2026-10-01T00:00:00Z");
 
 interface TimeLeft {
@@ -32,14 +31,15 @@ function DigitBlock({ label, value }: { label: string; value: string }) {
     <div
       className="flex flex-col items-center gap-2 rounded-xl px-4 py-3 sm:px-6 sm:py-4"
       style={{
-        background: "#0F0E1A",
-        border: "1px solid rgba(255,255,255,0.07)",
+        background: "#FFFFFF",
+        border: "1px solid rgba(79,70,229,0.12)",
+        boxShadow: "0 1px 4px rgba(0,0,0,0.06)",
         minWidth: "64px",
       }}
     >
       <div
         className="font-mono text-3xl sm:text-5xl font-medium tabular-nums overflow-hidden"
-        style={{ color: "#ECECF5", lineHeight: 1 }}
+        style={{ color: "#14103A", lineHeight: 1 }}
       >
         <AnimatePresence mode="popLayout" initial={false}>
           <motion.span
@@ -56,7 +56,7 @@ function DigitBlock({ label, value }: { label: string; value: string }) {
       </div>
       <span
         className="font-mono text-[9px] sm:text-[10px] tracking-[0.22em] uppercase"
-        style={{ color: "#8B8BA7" }}
+        style={{ color: "#6B7280" }}
       >
         {label}
       </span>
@@ -83,20 +83,21 @@ export default function Countdown() {
             key={label}
             className="flex flex-col items-center gap-2 rounded-xl px-4 py-3 sm:px-6 sm:py-4"
             style={{
-              background: "#0F0E1A",
-              border: "1px solid rgba(255,255,255,0.07)",
+              background: "#FFFFFF",
+              border: "1px solid rgba(79,70,229,0.12)",
+              boxShadow: "0 1px 4px rgba(0,0,0,0.06)",
               minWidth: "64px",
             }}
           >
             <span
               className="font-mono text-3xl sm:text-5xl font-medium"
-              style={{ color: "#ECECF5", lineHeight: 1 }}
+              style={{ color: "#14103A", lineHeight: 1 }}
             >
               --
             </span>
             <span
               className="font-mono text-[9px] sm:text-[10px] tracking-[0.22em] uppercase"
-              style={{ color: "#8B8BA7" }}
+              style={{ color: "#6B7280" }}
             >
               {label}
             </span>

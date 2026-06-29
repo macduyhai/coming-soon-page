@@ -41,8 +41,8 @@ export default function Hero() {
           <span
             className="font-mono text-[11px] tracking-[0.28em] rounded px-3 py-1.5"
             style={{
-              color: "#8B8BA7",
-              border: "1px solid rgba(255,255,255,0.08)",
+              color: "#6B7280",
+              border: "1px solid rgba(79,70,229,0.15)",
             }}
           >
             [ HẢI PHÒNG &middot; CHỐNG LỪA ĐẢO SỐ ]
@@ -65,7 +65,7 @@ export default function Hero() {
         <motion.p
           variants={item}
           className="font-body text-base md:text-lg leading-relaxed max-w-md"
-          style={{ color: "#8B8BA7" }}
+          style={{ color: "#6B7280" }}
         >
           Nền tảng cẩm nang, cảnh báo và tố giác lừa đảo trực tuyến — hoàn
           toàn miễn phí, dành riêng cho người dân thành phố Hải Phòng.
@@ -80,7 +80,7 @@ export default function Hero() {
         <motion.div variants={item} className="w-full max-w-sm">
           <p
             className="font-mono text-[11px] tracking-[0.15em] mb-3"
-            style={{ color: "#8B8BA7" }}
+            style={{ color: "#6B7280" }}
           >
             ĐĂNG KÝ NHẬN CẢNH BÁO SỚM
           </p>

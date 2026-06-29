@@ -1,14 +1,16 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-bg: #07060d;
-  --color-surface: #0f0e1a;
-  --color-fg: #ececf5;
-  --color-muted: #8b8ba7;
-  --color-indigo: #6366f1;
-  --color-violet: #8b5cf6;
-  --color-cyan: #22d3ee;
-  --color-pink: #f472b6;
+  /* Light theme — tươi sáng, gradient-driven */
+  --color-bg: #F0F4FF;
+  --color-surface: #FFFFFF;
+  --color-fg: #14103A;
+  --color-muted: #6B7280;
+  --color-indigo: #4F46E5;
+  --color-violet: #7C3AED;
+  --color-cyan: #06B6D4;
+  --color-emerald: #10B981;
+  --color-pink: #EC4899;
 
   --font-display: var(--font-space-grotesk);
   --font-body: var(--font-inter);
@@ -27,46 +29,58 @@ html {
 
 body {
   min-height: 100%;
-  background-color: #07060d;
-  color: #ececf5;
+  color: #14103A;
   font-family: var(--font-inter), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
-/* Gradient headline with shimmer */
+/* ── Animated gradient background ──────────────────────────── */
+.animated-bg {
+  background: linear-gradient(
+    -45deg,
+    #EEF2FF,  /* indigo sáng */
+    #E0F2FE,  /* sky sáng    */
+    #ECFDF5,  /* emerald sáng */
+    #F5F3FF   /* violet sáng */
+  );
+  background-size: 400% 400%;
+  animation: bg-shift 14s ease infinite;
+}
+
+/* ── Gradient headline với shimmer ─────────────────────────── */
 .gradient-text {
   background: linear-gradient(
     90deg,
-    #6366f1 0%,
-    #8b5cf6 30%,
-    #22d3ee 60%,
-    #8b5cf6 80%,
-    #6366f1 100%
+    #4F46E5 0%,
+    #7C3AED 28%,
+    #06B6D4 55%,
+    #10B981 78%,
+    #4F46E5 100%
   );
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: text-shimmer 10s linear infinite;
+  animation: text-shimmer 8s linear infinite;
 }
 
-/* CTA button */
+/* ── CTA button ─────────────────────────────────────────────── */
 .cta-button {
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-  color: #ececf5;
+  background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+  color: #FFFFFF;
   cursor: pointer;
   transition: transform 150ms ease, box-shadow 150ms ease;
 }
 
 .cta-button:hover:not(:disabled) {
   transform: scale(1.02);
-  box-shadow: 0 0 24px rgba(99, 102, 241, 0.45);
+  box-shadow: 0 4px 20px rgba(79, 70, 229, 0.4);
 }
 
 .cta-button:focus-visible {
-  outline: 2px solid #6366f1;
+  outline: 2px solid #4F46E5;
   outline-offset: 3px;
 }
 
@@ -75,93 +89,76 @@ body {
   cursor: not-allowed;
 }
 
-/* Email input */
+/* ── Email input ────────────────────────────────────────────── */
 .email-input {
-  background: #0f0e1a;
-  color: #ececf5;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #FFFFFF;
+  color: #14103A;
+  border: 1px solid rgba(79, 70, 229, 0.2);
   transition: border-color 150ms ease, box-shadow 150ms ease;
 }
 
 .email-input::placeholder {
-  color: #8b8ba7;
+  color: #9CA3AF;
 }
 
 .email-input:focus {
   outline: none;
-  border-color: #6366f1;
-  box-shadow: 0 0 0 1px #6366f1;
+  border-color: #4F46E5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
 }
 
 .email-input:disabled {
   opacity: 0.5;
 }
 
-/* Ambient blob drift */
-@keyframes blob-drift-1 {
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-  33% {
-    transform: translate(3%, -2%) scale(1.05);
-  }
-  66% {
-    transform: translate(-2%, 3%) scale(0.97);
-  }
-}
-
-@keyframes blob-drift-2 {
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-  33% {
-    transform: translate(-4%, 2%) scale(1.03);
-  }
-  66% {
-    transform: translate(3%, -4%) scale(1.06);
-  }
-}
-
-.blob-1 {
-  animation: blob-drift-1 22s ease-in-out infinite;
-}
-.blob-2 {
-  animation: blob-drift-2 28s ease-in-out infinite;
-}
-
-@keyframes text-shimmer {
-  0% {
-    background-position: 0% center;
-  }
-  100% {
-    background-position: 200% center;
-  }
-}
-
-/* Feature cards */
+/* ── Feature cards ──────────────────────────────────────────── */
 .feature-card {
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  transition: border-color 200ms ease, background-color 200ms ease;
+  background: #FFFFFF;
+  border: 1px solid rgba(79, 70, 229, 0.1);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  transition: border-color 200ms ease, box-shadow 200ms ease,
+              transform 200ms ease;
 }
 
 .feature-card:hover {
-  border-color: rgba(99, 102, 241, 0.35);
-  background-color: rgba(99, 102, 241, 0.04) !important;
+  border-color: rgba(79, 70, 229, 0.28);
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.12);
+  transform: translateY(-2px);
 }
 
-/* Reduced motion */
+/* ── Blob drift ─────────────────────────────────────────────── */
+@keyframes blob-drift-1 {
+  0%,  100% { transform: translate(0, 0) scale(1); }
+  33%        { transform: translate(3%, -2%) scale(1.05); }
+  66%        { transform: translate(-2%, 3%) scale(0.97); }
+}
+
+@keyframes blob-drift-2 {
+  0%,  100% { transform: translate(0, 0) scale(1); }
+  33%        { transform: translate(-4%, 2%) scale(1.03); }
+  66%        { transform: translate(3%, -4%) scale(1.06); }
+}
+
+.blob-1 { animation: blob-drift-1 22s ease-in-out infinite; }
+.blob-2 { animation: blob-drift-2 28s ease-in-out infinite; }
+
+/* ── Keyframes ─────────────────────────────────────────────── */
+@keyframes bg-shift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes text-shimmer {
+  0%   { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* ── Reduced motion ─────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  .gradient-text {
-    animation: none;
-    background-position: 0% center;
-  }
-  .blob-1,
-  .blob-2 {
-    animation: none;
-  }
-  .cta-button {
-    transition: none;
-  }
+  .gradient-text   { animation: none; background-position: 0% center; }
+  .animated-bg     { animation: none; background-position: 0% 50%; }
+  .blob-1, .blob-2 { animation: none; }
+  .cta-button      { transition: none; }
+  .feature-card    { transition: none; transform: none !important; }
 }
