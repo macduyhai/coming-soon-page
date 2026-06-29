@@ -1,0 +1,194 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+
+interface Particle {
+  x: number;
+  y: number;
+  prevX: number;
+  prevY: number;
+  speed: number;
+  life: number;
+  maxLife: number;
+  colorIdx: number;
+  wrapped: boolean;
+}
+
+// Indigo · Violet · Cyan
+const COLORS: [number, number, number][] = [
+  [99, 102, 241],
+  [139, 92, 246],
+  [34, 211, 238],
+];
+
+function fieldNoise(x: number, y: number, t: number): number {
+  const a = Math.sin(x * 0.0035 + t * 0.28) * Math.cos(y * 0.003 + t * 0.18);
+  const b = Math.cos(x * 0.007 - y * 0.005 + t * 0.44) * 0.52;
+  const c = Math.sin((x + y) * 0.003 + t * 0.12) * 0.3;
+  const d = Math.cos(x * 0.002 + y * 0.008 - t * 0.09) * 0.18;
+  return a + b + c + d;
+}
+
+function getAngle(x: number, y: number, t: number): number {
+  return fieldNoise(x, y, t) * Math.PI * 1.85;
+}
+
+function makeParticle(w: number, h: number, stagger = false): Particle {
+  const maxLife = 200 + Math.random() * 280;
+  const x = Math.random() * w;
+  const y = Math.random() * h;
+  return {
+    x,
+    y,
+    prevX: x,
+    prevY: y,
+    speed: 0.45 + Math.random() * 0.55,
+    life: stagger ? Math.random() * maxLife : 0,
+    maxLife,
+    colorIdx: Math.floor(Math.random() * COLORS.length),
+    wrapped: true,
+  };
+}
+
+export default function FlowField() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    if (!canvasRef.current) return;
+    // Explicit types — TypeScript loses narrowing inside nested function closures
+    const canvas: HTMLCanvasElement = canvasRef.current;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const ctxOrNull = canvas.getContext("2d", { alpha: false });
+    if (!ctxOrNull) return;
+    const ctx: CanvasRenderingContext2D = ctxOrNull;
+
+    const DPR = Math.min(window.devicePixelRatio || 1, 2);
+    let w = 0;
+    let h = 0;
+    let particles: Particle[] = [];
+    let rafId = 0;
+    let t = 0;
+
+    function setup() {
+      w = window.innerWidth;
+      h = window.innerHeight;
+      canvas.width = Math.floor(w * DPR);
+      canvas.height = Math.floor(h * DPR);
+      canvas.style.width = `${w}px`;
+      canvas.style.height = `${h}px`;
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+
+      ctx.fillStyle = "#07060D";
+      ctx.fillRect(0, 0, w, h);
+
+      const count = Math.max(80, Math.min(240, Math.floor((w * h) / 5500)));
+      particles = Array.from({ length: count }, () => makeParticle(w, h, true));
+    }
+
+    function frame() {
+      t += 0.007;
+
+      // Fade existing trails — lower = longer trails
+      ctx.fillStyle = "rgba(7,6,13,0.052)";
+      ctx.fillRect(0, 0, w, h);
+
+      ctx.lineWidth = 0.85;
+      ctx.lineCap = "round";
+
+      for (const p of particles) {
+        p.life += 1;
+
+        // Envelope: fade in and out at life edges
+        const r = p.life / p.maxLife;
+        const alpha =
+          r < 0.1 ? r / 0.1 : r > 0.86 ? (1 - r) / 0.14 : 1;
+
+        if (!p.wrapped) {
+          const [cr, cg, cb] = COLORS[p.colorIdx];
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(${cr},${cg},${cb},${(alpha * 0.36).toFixed(3)})`;
+          ctx.moveTo(p.prevX, p.prevY);
+          ctx.lineTo(p.x, p.y);
+          ctx.stroke();
+        }
+
+        p.prevX = p.x;
+        p.prevY = p.y;
+        p.wrapped = false;
+
+        const angle = getAngle(p.x, p.y, t);
+        p.x += Math.cos(angle) * p.speed;
+        p.y += Math.sin(angle) * p.speed;
+
+        // Respawn on life expiry
+        if (p.life >= p.maxLife) {
+          const nx = Math.random() * w;
+          const ny = Math.random() * h;
+          p.x = nx;
+          p.y = ny;
+          p.prevX = nx;
+          p.prevY = ny;
+          p.life = 0;
+          p.maxLife = 200 + Math.random() * 280;
+          p.colorIdx = Math.floor(Math.random() * COLORS.length);
+          p.wrapped = true;
+          continue;
+        }
+
+        // Edge wrap
+        const pad = 12;
+        if (p.x < -pad) {
+          p.x = w + pad;
+          p.prevX = p.x;
+          p.wrapped = true;
+        } else if (p.x > w + pad) {
+          p.x = -pad;
+          p.prevX = p.x;
+          p.wrapped = true;
+        }
+        if (p.y < -pad) {
+          p.y = h + pad;
+          p.prevY = p.y;
+          p.wrapped = true;
+        } else if (p.y > h + pad) {
+          p.y = -pad;
+          p.prevY = p.y;
+          p.wrapped = true;
+        }
+      }
+
+      rafId = requestAnimationFrame(frame);
+    }
+
+    setup();
+    rafId = requestAnimationFrame(frame);
+
+    function onResize() {
+      cancelAnimationFrame(rafId);
+      setup();
+      rafId = requestAnimationFrame(frame);
+    }
+
+    window.addEventListener("resize", onResize);
+    return () => {
+      cancelAnimationFrame(rafId);
+      window.removeEventListener("resize", onResize);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      aria-hidden="true"
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 0,
+        pointerEvents: "none",
+        display: "block",
+      }}
+    />
+  );
+}
