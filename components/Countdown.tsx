@@ -3,7 +3,10 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
-const LAUNCH = new Date("2026-10-01T00:00:00Z");
+// Đọc từ env — fallback 2026-10-01 nếu chưa cấu hình
+const LAUNCH = new Date(
+  process.env.NEXT_PUBLIC_LAUNCH_DATE ?? "2026-10-01T00:00:00Z"
+);
 
 interface TimeLeft {
   days: number;
